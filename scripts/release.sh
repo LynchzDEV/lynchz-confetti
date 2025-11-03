@@ -130,7 +130,7 @@ print_success "Build completed successfully"
 
 # Add changes to git
 print_status "Committing changes..."
-git add package.json dist/
+git add package.json
 
 # Check if there are changes to commit
 if [ -z "$(git diff --cached)" ]; then

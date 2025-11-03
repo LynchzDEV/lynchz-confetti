@@ -23,15 +23,15 @@
     "typescript",
     "hooks"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "LynchzDEV <contact@lynchz.dev>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/react-confetti-shooter.git"
+    "url": "https://github.com/LynchzDEV/react-confetti-shooter.git"
   },
-  "homepage": "https://github.com/yourusername/react-confetti-shooter#readme",
+  "homepage": "https://github.com/LynchzDEV/react-confetti-shooter#readme",
   "bugs": {
-    "url": "https://github.com/yourusername/react-confetti-shooter/issues"
+    "url": "https://github.com/LynchzDEV/react-confetti-shooter/issues"
   },
   "peerDependencies": {
     "react": ">=16.8.0"

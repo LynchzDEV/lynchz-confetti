@@ -8,6 +8,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -42,22 +45,18 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub Release
-        uses: actions/create-release@v1
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ github.ref_name }}" \
+            --notes "## Changes in this Release
+          - Published version ${{ github.ref_name }} to NPM
+          - Package: \`react-confetti-shooter\`
+
+          ## Installation
+          \`\`\`bash
+          npm install react-confetti-shooter
+          # or
+          bun add react-confetti-shooter
+          \`\`\`"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            ## Changes in this Release
-            - Published version ${{ github.ref_name }} to NPM
-            - Package: `react-confetti-shooter`
-
-            ## Installation
-            ```bash
-            npm install react-confetti-shooter
-            # or
-            bun add react-confetti-shooter
-            ```
-          draft: false
-          prerelease: false

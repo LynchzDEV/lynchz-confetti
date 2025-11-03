@@ -2,6 +2,17 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 export type Direction = 'left' | 'right' | 'top' | 'center';
 
+export interface AutoTriggerOptions {
+  enabled: boolean;
+  direction?: Direction;
+  count?: number;
+  delay?: number;
+}
+
+export interface UseConfettiOptions {
+  autoTrigger?: AutoTriggerOptions;
+}
+
 interface ConfettiParticle {
   id: number;
   x: number;
@@ -57,7 +68,7 @@ const getDirectionConfig = (
   };
 };
 
-export const useConfetti = () => {
+export const useConfetti = (options?: UseConfettiOptions) => {
   const [confetti, setConfetti] = useState<ConfettiParticle[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const animationFrameRef = useRef<number | undefined>(undefined);
@@ -121,19 +132,22 @@ export const useConfetti = () => {
     }
   }, []);
 
-  const triggerConfetti = (
-    direction: Direction,
-    count: number = 50,
-    sourceX?: number,
-    sourceY?: number,
-  ): void => {
-    if (isAnimating) return;
+  const triggerConfetti = useCallback(
+    (
+      direction: Direction,
+      count: number = 50,
+      sourceX?: number,
+      sourceY?: number,
+    ): void => {
+      if (isAnimating) return;
 
-    const newConfetti = createParticles(count, direction, sourceX, sourceY);
-    confettiRef.current = newConfetti;
-    setConfetti(newConfetti);
-    setIsAnimating(true);
-  };
+      const newConfetti = createParticles(count, direction, sourceX, sourceY);
+      confettiRef.current = newConfetti;
+      setConfetti(newConfetti);
+      setIsAnimating(true);
+    },
+    [isAnimating],
+  );
 
   useEffect(() => {
     if (isAnimating) {
@@ -166,6 +180,23 @@ export const useConfetti = () => {
       ))}
     </div>
   );
+
+  // Auto-trigger effect
+  useEffect(() => {
+    if (options?.autoTrigger?.enabled) {
+      const {
+        direction = 'center',
+        count = 50,
+        delay = 0,
+      } = options.autoTrigger;
+
+      const timer = setTimeout(() => {
+        triggerConfetti(direction, count);
+      }, delay);
+
+      return () => clearTimeout(timer);
+    }
+  }, [options?.autoTrigger, triggerConfetti]);
 
   return {
     triggerConfetti,

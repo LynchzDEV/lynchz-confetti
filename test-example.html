@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Confetti Shooter Test</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        .confetti-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        .confetti-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .confetti-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .left { background: #ef4444; }
+        .right { background: #3b82f6; }
+        .top { background: #10b981; }
+        .center { background: #8b5cf6; }
+        .auto-trigger {
+            background: #f59e0b;
+            grid-column: 1 / -1;
+        }
+        h1 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #475569;
+            margin-top: 0;
+        }
+        p {
+            color: #64748b;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .status {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .welcome-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 React Confetti Shooter Test</h1>
+        <p>Test your confetti library locally with different configurations</p>
+
+        <!-- Manual Trigger Test -->
+        <div class="test-section">
+            <h2>📱 Manual Trigger Test</h2>
+            <p>Click buttons to shoot confetti in different directions</p>
+            <div id="manual-test"></div>
+        </div>
+
+        <!-- Auto Trigger Test -->
+        <div class="test-section">
+            <h2>⚡ Auto-Trigger Test</h</h2>2>
+            <p>This section automatically triggers confetti when loaded</p>
+            <div id="auto-test"></div>
+        </div>
+
+        <!-- Usage Examples -->
+        <div class="test-section">
+            <h2>💻 Usage Examples</h2>
+
+            <h3>Basic Manual Trigger:</h3>
+            <div class="code-block">
+const { triggerConfetti, ConfettiRenderer } = useConfetti();
+
+&lt;ConfettiRenderer /&gt;
+&lt;button onClick={() => triggerConfetti('center')}&gt;
+  🎉 Celebrate!
+&lt;/button&gt;
+            </div>
+
+            <h3>Auto-Trigger on Mount:</h3>
+            <div class="code-block">
+const { ConfettiRenderer } = useConfetti({
+  autoTrigger: {
+    enabled: true,
+    direction: 'center',
+    count: 100,
+    delay: 1000
+  }
+});
+
+&lt;ConfettiRenderer /&gt;
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        // Mock the confetti hook for testing
+        // Replace this with actual import when using npm link
+        const useConfetti = (options = {}) => {
+            const [confetti, setConfetti] = React.useState([]);
+            const [isAnimating, setIsAnimating] = React.useState(false);
+
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffd93d', '#ff8c42', '#a8e6cf', '#ff6f91'];
+
+            const createParticle = (direction, sourceX = window.innerWidth / 2, sourceY = window.innerHeight / 2) => {
+                const configs = {
+                    left: { baseAngle: Math.PI, spread: Math.PI / 4 },
+                    right: { baseAngle: 0, spread: Math.PI / 4 },
+                    top: { baseAngle: -Math.PI / 2, spread: Math.PI / 4 },
+                    center: { baseAngle: -Math.PI / 2, spread: Math.PI * 2 }
+                };
+
+                const config = configs[direction];
+                const angle = config.baseAngle + (Math.random() - 0.5) * config.spread;
+                const speed = Math.random() * 15 + 10;
+
+                return {
+                    id: Date.now() + Math.random(),
+                    x: sourceX,
+                    y: sourceY,
+                    velocityX: Math.cos(angle) * speed,
+                    velocityY: Math.sin(angle) * speed,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 15,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 10 + 8
+                };
+            };
+
+            const triggerConfetti = React.useCallback((direction, count = 50, sourceX, sourceY) => {
+                if (isAnimating) return;
+
+                const particles = Array.from({ length: count }, () =>
+                    createParticle(direction, sourceX, sourceY)
+                );
+
+                setConfetti(particles);
+                setIsAnimating(true);
+
+                // Simple animation
+                let frame = 0;
+                const animate = () => {
+                    frame++;
+                    setConfetti(prev => {
+                        const updated = prev.map(p => ({
+                            ...p,
+                            x: p.x + p.velocityX,
+                            y: p.y + p.velocityY,
+                            velocityY: p.velocityY + 0.5,
+                            rotation: p.rotation + p.rotationSpeed
+                        })).filter(p => p.y < window.innerHeight + 100);
+
+                        if (updated.length > 0 && frame < 300) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            setIsAnimating(false);
+                        }
+
+                        return updated;
+                    });
+                };
+                animate();
+            }, [isAnimating]);
+
+            // Auto-trigger effect
+            React.useEffect(() => {
+                if (options?.autoTrigger?.enabled) {
+                    const { direction = 'center', count = 50, delay = 0 } = options.autoTrigger;
+                    const timer = setTimeout(() => {
+                        triggerConfetti(direction, count);
+                    }, delay);
+                    return () => clearTimeout(timer);
+                }
+            }, [options?.autoTrigger, triggerConfetti]);
+
+            const ConfettiRenderer = () => React.createElement('div', {
+                style: {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    pointerEvents: 'none',
+                    zIndex: 1000
+                }
+            }, confetti.map(particle => React.createElement('div', {
+                key: particle.id,
+                style: {
+                    position: 'absolute',
+                    left: particle.x + 'px',
+                    top: particle.y + 'px',
+                    width: particle.size + 'px',
+                    height: particle.size + 'px',
+                    backgroundColor: particle.color,
+                    transform: `rotate(${particle.rotation}deg)`,
+                    borderRadius: '2px'
+                }
+            })));
+
+            return {
+                triggerConfetti,
+                ConfettiRenderer,
+                isAnimating,
+                particleCount: confetti.length
+            };
+        };
+
+        // Manual Test Component
+        function ManualTest() {
+            const { triggerConfetti, ConfettiRenderer, isAnimating, particleCount } = useConfetti();
+
+            const handleButtonClick = (direction, event) => {
+                const rect = event.currentTarget.getBoundingClientRect();
+                const sourceX = rect.left + rect.width / 2;
+                const sourceY = rect.top + rect.height / 2;
+                triggerConfetti(direction, 50, sourceX, sourceY);
+            };
+
+            return React.createElement('div', null,
+                React.createElement(ConfettiRenderer),
+                React.createElement('div', { className: 'button-grid' },
+                    React.createElement('button', {
+                        className: 'confetti-btn left',
+                        onClick: (e) => handleButtonClick('left', e),
+                        disabled: isAnimating
+                    }, 'Left ←'),
+                    React.createElement('button', {
+                        className: 'confetti-btn right',
+                        onClick: (e) => handleButtonClick('right', e),
+                        disabled: isAnimating
+                    }, 'Right →'),
+                    React.createElement('button', {
+                        className: 'confetti-btn top',
+                        onClick: (e) => handleButtonClick('top', e),
+                        disabled: isAnimating
+                    }, 'Top ↑'),
+                    React.createElement('button', {
+                        className: 'confetti-btn center',
+                        onClick: (e) => handleButtonClick('center', e),
+                        disabled: isAnimating
+                    }, 'Center 💥')
+                ),
+                React.createElement('div', { className: 'status' },
+                    `Active particles: ${particleCount} | ${isAnimating ? 'Animating...' : 'Ready'}`
+                )
+            );
+        }
+
+        // Auto Test Component
+        function AutoTest() {
+            const [showWelcome, setShowWelcome] = React.useState(true);
+            const { ConfettiRenderer } = useConfetti({
+                autoTrigger: {
+                    enabled: showWelcome,
+                    direction: 'center',
+                    count: 75,
+                    delay: 1000
+                }
+            });
+
+            React.useEffect(() => {
+                const timer = setTimeout(() => setShowWelcome(false), 3000);
+                return () => clearTimeout(timer);
+            }, []);
+
+            return React.createElement('div', null,
+                React.createElement(ConfettiRenderer),
+                showWelcome && React.createElement('div', { className: 'welcome-section' },
+                    React.createElement('h3', null, '🎊 Welcome! 🎊'),
+                    React.createElement('p', null, 'Auto-confetti will trigger in 1 second...')
+                ),
+                React.createElement('button', {
+                    className: 'confetti-btn auto-trigger',
+                    onClick: () => setShowWelcome(true)
+                }, '🔄 Trigger Auto-Confetti Again')
+            );
+        }
+
+        // Render components
+        ReactDOM.render(React.createElement(ManualTest), document.getElementById('manual-test'));
+        ReactDOM.render(React.createElement(AutoTest), document.getElementById('auto-test'));
+    </script>
+</body>
+</html>

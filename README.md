@@ -47,6 +47,31 @@ function MyComponent() {
 }
 ```
 
+### Auto-Trigger on Component Load
+
+```tsx
+import React from 'react';
+import { useConfetti } from 'react-confetti-shooter';
+
+function WelcomeComponent() {
+  const { ConfettiRenderer } = useConfetti({
+    autoTrigger: {
+      enabled: true,
+      direction: 'center',
+      count: 100,
+      delay: 1000, // Wait 1 second after component mounts
+    }
+  });
+
+  return (
+    <div>
+      <ConfettiRenderer />
+      <h1>Welcome! 🎉</h1>
+    </div>
+  );
+}
+```
+
 ### Advanced Usage with Source Position
 
 ```tsx
@@ -93,7 +118,19 @@ function MyComponent() {
 
 ## 🔧 API Reference
 
-### `useConfetti()`
+### `useConfetti(options?)`
+
+Hook that manages confetti animations.
+
+**Parameters:**
+- `options`: `UseConfettiOptions` (optional) - Configuration options
+
+**Options:**
+- `autoTrigger`: `AutoTriggerOptions` (optional) - Auto-trigger configuration
+  - `enabled`: `boolean` - Whether to auto-trigger confetti
+  - `direction`: `Direction` (optional, default: 'center') - Direction to shoot
+  - `count`: `number` (optional, default: 50) - Number of particles
+  - `delay`: `number` (optional, default: 0) - Delay in milliseconds before triggering
 
 Returns an object with the following properties:
 
@@ -136,6 +173,43 @@ Boolean indicating if confetti animation is currently running.
 
 Number of active confetti particles currently on screen.
 
+## ⚡ Auto-Trigger Examples
+
+### Immediate Welcome Effect
+```tsx
+const { ConfettiRenderer } = useConfetti({
+  autoTrigger: {
+    enabled: true,
+    direction: 'center',
+    count: 75
+  }
+});
+```
+
+### Delayed Celebration
+```tsx
+const { ConfettiRenderer } = useConfetti({
+  autoTrigger: {
+    enabled: true,
+    direction: 'top',
+    count: 100,
+    delay: 2000 // Wait 2 seconds
+  }
+});
+```
+
+### Directional Auto-Burst
+```tsx
+const { ConfettiRenderer } = useConfetti({
+  autoTrigger: {
+    enabled: true,
+    direction: 'left',
+    count: 30,
+    delay: 500
+  }
+});
+```
+
 ## 🎨 Customization
 
 ### Directions
@@ -173,6 +247,31 @@ function CelebrationButton() {
       >
         🎉 Celebrate!
       </button>
+    </div>
+  );
+}
+```
+
+### Auto-Loading Celebration
+
+```tsx
+function AutoCelebration() {
+  const { ConfettiRenderer } = useConfetti({
+    autoTrigger: {
+      enabled: true,
+      direction: 'center',
+      count: 150,
+      delay: 800
+    }
+  });
+  
+  return (
+    <div>
+      <ConfettiRenderer />
+      <div className="text-center p-8">
+        <h2>🎊 Success! 🎊</h2>
+        <p>Your action was completed!</p>
+      </div>
     </div>
   );
 }
@@ -228,9 +327,25 @@ The confetti system automatically adapts to screen size and viewport changes. Pa
 Full TypeScript support is included with proper type definitions:
 
 ```tsx
-import { useConfetti, Direction } from 'react-confetti-shooter';
+import { 
+  useConfetti, 
+  Direction, 
+  UseConfettiOptions, 
+  AutoTriggerOptions 
+} from 'react-confetti-shooter';
 
 const direction: Direction = 'center'; // Type-safe
+
+const options: UseConfettiOptions = {
+  autoTrigger: {
+    enabled: true,
+    direction: 'center',
+    count: 50,
+    delay: 1000
+  }
+}; // Fully typed
+
+const { triggerConfetti, ConfettiRenderer } = useConfetti(options);
 ```
 
 ## 🤝 Contributing

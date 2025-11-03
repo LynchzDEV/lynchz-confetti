@@ -4,7 +4,7 @@ This guide will help you set up your GitHub repository for automatic NPM publish
 
 ## Prerequisites
 
-- GitHub repository: `https://github.com/LynchzDEV/react-confetti-shooter`
+- GitHub repository: `https://github.com/LynchzDEV/lynchz-confetti`
 - NPM account with publishing permissions
 - Local git repository connected to GitHub
 
@@ -18,7 +18,7 @@ This guide will help you set up your GitHub repository for automatic NPM publish
 
 ## Step 2: Add NPM Token to GitHub Secrets
 
-1. Go to your GitHub repository: `https://github.com/LynchzDEV/react-confetti-shooter`
+1. Go to your GitHub repository: `https://github.com/LynchzDEV/lynchz-confetti`
 2. Click "Settings" tab
 3. In the left sidebar, click "Secrets and variables" → "Actions"
 4. Click "New repository secret"
@@ -38,7 +38,7 @@ git add .
 git commit -m "feat: initial release setup with GitHub Actions"
 
 # Push to GitHub (make sure remote is set)
-git remote add origin https://github.com/LynchzDEV/react-confetti-shooter.git
+git remote add origin https://github.com/LynchzDEV/lynchz-confetti.git
 git branch -M main
 git push -u origin main
 ```
@@ -93,7 +93,7 @@ git push origin "v$VERSION"
 ## Step 6: Verify Publication
 
 1. Check NPM: `https://www.npmjs.com/package/@lynchzdev/react-confetti-shooter`
-2. Check GitHub releases: `https://github.com/LynchzDEV/react-confetti-shooter/releases`
+2. Check GitHub releases: `https://github.com/LynchzDEV/lynchz-confetti/releases`
 
 ## Troubleshooting
 
@@ -139,7 +139,7 @@ The `./scripts/release.sh` script includes:
 ## Package Information
 
 - **Package Name**: `@lynchzdev/react-confetti-shooter`
-- **Repository**: `https://github.com/LynchzDEV/react-confetti-shooter`
+- **Repository**: `https://github.com/LynchzDEV/lynchz-confetti`
 - **NPM Registry**: `https://www.npmjs.com/package/@lynchzdev/react-confetti-shooter`
 
 Happy publishing! 🎉

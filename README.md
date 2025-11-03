@@ -15,13 +15,13 @@ A simple, lightweight React hook for creating confetti animations with direction
 ## 🚀 Installation
 
 ```bash
-npm install @lynchzdev/react-confetti-shooter
+npm install react-confetti-shooter
 ```
 
 Or with bun:
 
 ```bash
-bun add @lynchzdev/react-confetti-shooter
+bun add react-confetti-shooter
 ```
 
 ## 📖 Usage
@@ -30,7 +30,7 @@ bun add @lynchzdev/react-confetti-shooter
 
 ```tsx
 import React from 'react';
-import { useConfetti } from '@lynchzdev/react-confetti-shooter';
+import { useConfetti } from 'react-confetti-shooter';
 
 function MyComponent() {
   const { triggerConfetti, ConfettiRenderer } = useConfetti();
@@ -51,7 +51,7 @@ function MyComponent() {
 
 ```tsx
 import React from 'react';
-import { useConfetti } from '@lynchzdev/react-confetti-shooter';
+import { useConfetti } from 'react-confetti-shooter';
 
 function WelcomeComponent() {
   const { ConfettiRenderer } = useConfetti({
@@ -76,7 +76,7 @@ function WelcomeComponent() {
 
 ```tsx
 import React from 'react';
-import { useConfetti } from '@lynchzdev/react-confetti-shooter';
+import { useConfetti } from 'react-confetti-shooter';
 
 function MyComponent() {
   const { triggerConfetti, ConfettiRenderer } = useConfetti();
@@ -332,7 +332,7 @@ import {
   Direction, 
   UseConfettiOptions, 
   AutoTriggerOptions 
-} from '@lynchzdev/react-confetti-shooter';
+} from 'react-confetti-shooter';
 
 const direction: Direction = 'center'; // Type-safe
 

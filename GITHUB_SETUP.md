@@ -92,7 +92,7 @@ git push origin "v$VERSION"
 
 ## Step 6: Verify Publication
 
-1. Check NPM: `https://www.npmjs.com/package/@lynchzdev/react-confetti-shooter`
+1. Check NPM: `https://www.npmjs.com/package/react-confetti-shooter`
 2. Check GitHub releases: `https://github.com/LynchzDEV/lynchz-confetti/releases`
 
 ## Troubleshooting
@@ -138,8 +138,8 @@ The `./scripts/release.sh` script includes:
 
 ## Package Information
 
-- **Package Name**: `@lynchzdev/react-confetti-shooter`
+- **Package Name**: `react-confetti-shooter`
 - **Repository**: `https://github.com/LynchzDEV/lynchz-confetti`
-- **NPM Registry**: `https://www.npmjs.com/package/@lynchzdev/react-confetti-shooter`
+- **NPM Registry**: `https://www.npmjs.com/package/react-confetti-shooter`
 
 Happy publishing! 🎉

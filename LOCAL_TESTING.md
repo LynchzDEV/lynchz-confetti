@@ -29,14 +29,14 @@ bun install
 #### Step 3: Link the library to your test app
 ```bash
 # In your test app folder
-npm link @lynchzdev/react-confetti-shooter
+npm link react-confetti-shooter
 ```
 
 #### Step 4: Use in your test app
 ```tsx
 // src/App.tsx
 import React from 'react';
-import { useConfetti } from '@lynchzdev/react-confetti-shooter';
+import { useConfetti } from 'react-confetti-shooter';
 
 function App() {
   const { triggerConfetti, ConfettiRenderer } = useConfetti();
@@ -73,18 +73,18 @@ This creates a tarball (.tgz file) that you can install like a real npm package.
 # In your confetti library folder
 bun run build
 npm pack
-# This creates lynchzdev-react-confetti-shooter-1.1.0.tgz
+# This creates react-confetti-shooter-1.1.0.tgz
 ```
 
 #### Step 2: Install in test project
 ```bash
 # In your test app folder
-npm install ../confetti/lynchzdev-react-confetti-shooter-1.1.0.tgz
+npm install ../confetti/react-confetti-shooter-1.1.0.tgz
 ```
 
 #### Step 3: Use normally
 ```tsx
-import { useConfetti } from '@lynchzdev/react-confetti-shooter';
+import { useConfetti } from 'react-confetti-shooter';
 ```
 
 ### Method 3: Local file import (Development)
@@ -171,7 +171,7 @@ function PositionTest() {
 ### Complete Test Suite
 ```tsx
 import React, { useState } from 'react';
-import { useConfetti } from '@lynchzdev/react-confetti-shooter';
+import { useConfetti } from 'react-confetti-shooter';
 
 function TestSuite() {
   const [autoEnabled, setAutoEnabled] = useState(false);
@@ -256,7 +256,7 @@ export default TestSuite;
 1. **"Module not found"**
    ```bash
    # Make sure you linked correctly
-   npm ls @lynchzdev/react-confetti-shooter
+   npm ls react-confetti-shooter
    ```
 
 2. **TypeScript errors**
@@ -313,7 +313,7 @@ Once all tests pass:
 ### Unlink when done testing
 ```bash
 # In test app
-npm unlink @lynchzdev/react-confetti-shooter
+npm unlink react-confetti-shooter
 
 # In library folder
 npm unlink
@@ -322,7 +322,7 @@ npm unlink
 ### Remove test files
 ```bash
 rm -rf test-confetti-app
-rm lynchzdev-react-confetti-shooter-*.tgz
+rm react-confetti-shooter-*.tgz
 ```
 
 Happy testing! 🎊

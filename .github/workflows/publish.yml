@@ -51,13 +51,13 @@ jobs:
           body: |
             ## Changes in this Release
             - Published version ${{ github.ref_name }} to NPM
-            - Package: `@lynchzdev/react-confetti-shooter`
+            - Package: `react-confetti-shooter`
 
             ## Installation
             ```bash
-            npm install @lynchzdev/react-confetti-shooter
+            npm install react-confetti-shooter
             # or
-            bun add @lynchzdev/react-confetti-shooter
+            bun add react-confetti-shooter
             ```
           draft: false
           prerelease: false

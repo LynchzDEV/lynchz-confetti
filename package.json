@@ -1,0 +1,50 @@
+{
+  "name": "react-confetti-shooter",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A simple, one-line React confetti library with directional shooting",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": [
+    "react",
+    "confetti",
+    "animation",
+    "particles",
+    "celebration",
+    "typescript",
+    "hooks"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-confetti-shooter.git"
+  },
+  "homepage": "https://github.com/yourusername/react-confetti-shooter#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/react-confetti-shooter/issues"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/react": "^18.0.0",
+    "rollup": "^4.0.0",
+    "rollup-plugin-dts": "^6.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.8.1",
+    "typescript": "^5.0.0"
+  }
+}

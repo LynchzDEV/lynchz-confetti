@@ -29,14 +29,14 @@ bun install
 #### Step 3: Link the library to your test app
 ```bash
 # In your test app folder
-npm link react-confetti-shooter
+npm link @lynchzdev/react-confetti-shooter
 ```
 
 #### Step 4: Use in your test app
 ```tsx
 // src/App.tsx
 import React from 'react';
-import { useConfetti } from 'react-confetti-shooter';
+import { useConfetti } from '@lynchzdev/react-confetti-shooter';
 
 function App() {
   const { triggerConfetti, ConfettiRenderer } = useConfetti();
@@ -45,7 +45,7 @@ function App() {
     <div style={{ padding: '50px', textAlign: 'center' }}>
       <ConfettiRenderer />
       <h1>Testing Confetti Library</h1>
-      
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', maxWidth: '300px', margin: '20px auto' }}>
         <button onClick={() => triggerConfetti('left')}>Left</button>
         <button onClick={() => triggerConfetti('right')}>Right</button>
@@ -73,18 +73,18 @@ This creates a tarball (.tgz file) that you can install like a real npm package.
 # In your confetti library folder
 bun run build
 npm pack
-# This creates react-confetti-shooter-1.1.0.tgz
+# This creates lynchzdev-react-confetti-shooter-1.1.0.tgz
 ```
 
 #### Step 2: Install in test project
 ```bash
 # In your test app folder
-npm install ../confetti/react-confetti-shooter-1.1.0.tgz
+npm install ../confetti/lynchzdev-react-confetti-shooter-1.1.0.tgz
 ```
 
 #### Step 3: Use normally
 ```tsx
-import { useConfetti } from 'react-confetti-shooter';
+import { useConfetti } from '@lynchzdev/react-confetti-shooter';
 ```
 
 ### Method 3: Local file import (Development)
@@ -171,11 +171,11 @@ function PositionTest() {
 ### Complete Test Suite
 ```tsx
 import React, { useState } from 'react';
-import { useConfetti } from 'react-confetti-shooter';
+import { useConfetti } from '@lynchzdev/react-confetti-shooter';
 
 function TestSuite() {
   const [autoEnabled, setAutoEnabled] = useState(false);
-  
+
   const { triggerConfetti, ConfettiRenderer, isAnimating, particleCount } = useConfetti({
     autoTrigger: {
       enabled: autoEnabled,
@@ -188,9 +188,9 @@ function TestSuite() {
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <ConfettiRenderer />
-      
+
       <h1>🎉 Confetti Library Test Suite</h1>
-      
+
       {/* Manual Triggers */}
       <section style={{ marginBottom: '40px', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
         <h2>Manual Triggers</h2>
@@ -256,7 +256,7 @@ export default TestSuite;
 1. **"Module not found"**
    ```bash
    # Make sure you linked correctly
-   npm ls react-confetti-shooter
+   npm ls @lynchzdev/react-confetti-shooter
    ```
 
 2. **TypeScript errors**
@@ -313,7 +313,7 @@ Once all tests pass:
 ### Unlink when done testing
 ```bash
 # In test app
-npm unlink react-confetti-shooter
+npm unlink @lynchzdev/react-confetti-shooter
 
 # In library folder
 npm unlink
@@ -322,7 +322,7 @@ npm unlink
 ### Remove test files
 ```bash
 rm -rf test-confetti-app
-rm react-confetti-shooter-*.tgz
+rm lynchzdev-react-confetti-shooter-*.tgz
 ```
 
 Happy testing! 🎊
